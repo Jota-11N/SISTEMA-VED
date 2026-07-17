@@ -1,13 +1,9 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { Key } from 'lucide-react';
-
-// Esta línea soluciona el error en Vercel sin alterar la estructura del proyecto
-export const dynamic = 'force-dynamic';
 
 const columnsAdmin = [
   { key: 'evento', header: 'Evento de Auditoría' },
@@ -34,10 +30,13 @@ const mockDataPersonero = [
   { evento: 'Carga de Documento (DJ)', ip: '190.235.122.45', timestamp: '2026-10-12 14:35:10 AM', estado: 'Firma Válida' },
 ];
 
-// Componente secundario aislado que encapsula el uso de useSearchParams()
-function ContenidoAuditoria() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+interface ContenidoProps {
+  role?: string;
+}
+
+// El componente ahora recibe el rol directamente de forma segura sin Hooks problemáticos
+function ContenidoAuditoria({ role }: ContenidoProps) {
+  const isPersonero = role === 'personero';
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -99,11 +98,13 @@ function ContenidoAuditoria() {
   );
 }
 
-// Exportación principal requerida por Next.js que envuelve el contenido en un Suspense Boundary
-export default function AuditoriaPage() {
+// Next.js pasa automáticamente searchParams aquí sin romper el Prerendering
+export default function AuditoriaPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
   return (
     <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando bitácora de auditoría...</div>}>
-      <ContenidoAuditoria />
+      <ContenidoAuditoria role={role} />
     </Suspense>
   );
 }
