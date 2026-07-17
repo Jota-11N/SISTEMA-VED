@@ -6,6 +6,9 @@ import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { Key } from 'lucide-react';
 
+// Esta línea soluciona el error en Vercel sin alterar la estructura del proyecto
+export const dynamic = 'force-dynamic';
+
 const columnsAdmin = [
   { key: 'evento', header: 'Evento de Auditoría' },
   { key: 'detalles', header: 'Detalles del Suceso' },
