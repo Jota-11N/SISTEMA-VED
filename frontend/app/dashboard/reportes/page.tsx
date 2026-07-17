@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { Download, FileText, CheckCircle2 } from 'lucide-react';
@@ -20,9 +19,8 @@ const mockDataAdmin = [
   { reporte: 'Detalle de Participación por Escuela y Estamento', tipo: 'XLSX', fecha: '2026-07-15', descargas: '8 veces', estado: 'Completado' },
 ];
 
-export default function ReportesPage() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+function ContenidoReportes({ role }: { role?: string }) {
+  const isPersonero = role === 'personero';
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -87,5 +85,15 @@ export default function ReportesPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function ReportesPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando reportes...</div>}>
+      <ContenidoReportes role={role} />
+    </Suspense>
   );
 }

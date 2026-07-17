@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { ShieldCheck } from 'lucide-react';
@@ -32,9 +31,8 @@ const mockDataPersonero = [
   { fecha: '2026-10-12 14:35:10', accion: 'Subida de Declaración Jurada (IPFS Hash)', hash: '0x3e1d45f78ac...', estado: 'Confirmado en Bloque #45212' },
 ];
 
-export default function BlockchainPage() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+function ContenidoBlockchain({ role }: { role?: string }) {
+  const isPersonero = role === 'personero';
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -95,5 +93,15 @@ export default function BlockchainPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function BlockchainPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando red blockchain...</div>}>
+      <ContenidoBlockchain role={role} />
+    </Suspense>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { CheckCircle2, Lock, Radio } from 'lucide-react';
@@ -33,9 +32,8 @@ const mockDataPersonero = [
   { mesa: 'Mesa 022', ubicacion: 'Facultad de Ingeniería - Lab 2', fiscal: 'Carlos R. Díaz', estado: 'Cerrada - En Escrutinio' },
 ];
 
-export default function MonitorVotacionPage() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+function ContenidoMonitor({ role }: { role?: string }) {
+  const isPersonero = role === 'personero';
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -117,5 +115,15 @@ export default function MonitorVotacionPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function MonitorVotacionPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando monitor...</div>}>
+      <ContenidoMonitor role={role} />
+    </Suspense>
   );
 }

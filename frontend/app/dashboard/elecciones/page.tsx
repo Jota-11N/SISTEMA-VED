@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import { CheckCircle2 } from 'lucide-react';
@@ -19,9 +18,8 @@ const mockData = [
   { proceso: 'Representantes de Graduados', fecha: '2026-05-18', tipo: 'Graduados', estado: 'Completado' },
 ];
 
-export default function EleccionesPage() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+function ContenidoElecciones({ role }: { role?: string }) {
+  const isPersonero = role === 'personero';
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -76,5 +74,15 @@ export default function EleccionesPage() {
         <DataTable columns={columns} data={isPersonero ? [mockData[0]] : mockData} />
       </div>
     </div>
+  );
+}
+
+export default function EleccionesPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando elecciones...</div>}>
+      <ContenidoElecciones role={role} />
+    </Suspense>
   );
 }

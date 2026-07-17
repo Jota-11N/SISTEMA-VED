@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState, Suspense } from 'react';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
 import GestionarAccesosModal from '../../../src/components/listas/GestionarAccesosModal';
@@ -14,9 +13,8 @@ const initialData = [
   { id: 3, lista: 'Unidad Estudiantil', candidato: 'Raúl E. Cáceres', cargo: 'Representante Estudiantil', personero: 'Sofía D. Prado', estado: 'Observado' },
 ];
 
-export default function ListasPage() {
-  const searchParams = useSearchParams();
-  const isPersonero = searchParams?.get('role') === 'personero';
+function ContenidoListas({ role }: { role?: string }) {
+  const isPersonero = role === 'personero';
 
   // State for Admin
   const [isAccesoModalOpen, setIsAccesoModalOpen] = useState(false);
@@ -498,5 +496,15 @@ export default function ListasPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function ListasPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const role = typeof searchParams?.role === 'string' ? searchParams.role : undefined;
+
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando listas...</div>}>
+      <ContenidoListas role={role} />
+    </Suspense>
   );
 }
