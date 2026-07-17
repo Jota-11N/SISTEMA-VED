@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Modo Claro Súper Limpio (Light Mode) + Deep Blue */
+  --background: #F8FAFC; /* Slate 50 - Fondo general ultra claro */
+  --foreground: #0F172A; /* Slate 900 - Texto negro/azul muy oscuro */
+  --foreground-muted: #64748B; /* Slate 500 - Texto secundario gris */
+  
+  --surface: #FFFFFF; /* Blanco puro para tarjetas */
+  --surface-hover: #F1F5F9; /* Slate 100 */
+  
+  --primary: #1D4ED8; /* Blue 700 - Azul Profundo (Botones, Sidebar) */
+  --primary-hover: #1E3A8A; /* Blue 900 */
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #EFF6FF; /* Blue 50 - Fondo celeste pálido (ej. Caja de sesión) */
+  --secondary-hover: #DBEAFE; /* Blue 100 */
+  --secondary-foreground: #1D4ED8;
+  
+  --dark-blue: #1E3A8A; /* Azul oscuro */
+  --light-blue: #60A5FA; /* Azul claro */
+  
+  --border: #E2E8F0; /* Slate 200 - Borde sutil */
+  
+  /* Colores Semánticos y de Acento */
+  --success: #10B981; /* Verde */
+  --error: #EF4444; /* Rojo */
+  --warning: #FF6B00; /* Naranja vibrante para el Logo o acentos */
+  --info: #3B82F6; /* Azul claro */
+}
+
+.dark {
+  /* Modo Oscuro 100% Puro + Azul */
+  --background: #000000; /* Negro puro */
+  --foreground: #FFFFFF; /* Texto blanco */
+  --foreground-muted: #94A3B8; /* Gris claro */
+  
+  --surface: #0A0A0A; /* Negro ligeramente elevado para tarjetas */
+  --surface-hover: #171717;
+  
+  --primary: #2563EB; /* Azul primario de los gráficos (Blue-600) */
+  --primary-hover: #1D4ED8;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #172554; /* Azul oscuro secundario */
+  --secondary-hover: #1E3A8A;
+  --secondary-foreground: #FFFFFF;
+  
+  --dark-blue: #0F172A; /* Azul Oscuro 80% (Slate-900) para el Sidebar */
+  --light-blue: #60A5FA; 
+  
+  --border: #262626; /* Borde oscuro sutil */
+  
+  /* Colores Semánticos y de Acento */
+  --success: #10B981;
+  --error: #EF4444;
+  --warning: #FF6B00;
+  --info: #3B82F6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-dark-blue: var(--dark-blue);
+  --color-light-blue: var(--light-blue);
+  --color-border: var(--border);
+  
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Scrollbar styling opcional para look institucional */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-muted);
+}
+
+/* Patrón de Nodos (Blockchain / Ciberseguridad) */
+.bg-node-pattern {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .bg-node-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}

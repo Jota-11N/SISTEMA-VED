@@ -1,0 +1,33 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+.env.local
+
+# Build
+dist/
+build/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+
+# PostgreSQL
+*.sql
+
+# Hyperledger
+blockchain/fabric-samples/
+blockchain/bin/
+blockchain/config/
