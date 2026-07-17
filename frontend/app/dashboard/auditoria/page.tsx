@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CardStats from '../../../src/components/CardStats';
 import DataTable from '../../../src/components/DataTable';
@@ -31,8 +31,8 @@ const mockDataPersonero = [
   { evento: 'Carga de Documento (DJ)', ip: '190.235.122.45', timestamp: '2026-10-12 14:35:10 AM', estado: 'Firma Válida' },
 ];
 
-
-export default function AuditoriaPage() {
+// Componente secundario aislado que encapsula el uso de useSearchParams()
+function ContenidoAuditoria() {
   const searchParams = useSearchParams();
   const isPersonero = searchParams?.get('role') === 'personero';
 
@@ -48,7 +48,7 @@ export default function AuditoriaPage() {
         <div className="space-y-1">
           <h1 className="text-2xl font-black text-slate-800 tracking-tight">Auditoría de Seguridad</h1>
           <p className="text-sm text-slate-500 font-medium">
-            {isPersonero 
+            {isPersonero
               ? 'Revisa el historial de accesos y movimientos de tu cuenta.'
               : 'Registro histórico inmutable de eventos del sistema y validación de seguridad.'}
           </p>
@@ -93,5 +93,14 @@ export default function AuditoriaPage() {
         </>
       )}
     </div>
+  );
+}
+
+// Exportación principal requerida por Next.js que envuelve el contenido en un Suspense Boundary
+export default function AuditoriaPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm font-bold text-slate-500">Cargando bitácora de auditoría...</div>}>
+      <ContenidoAuditoria />
+    </Suspense>
   );
 }
