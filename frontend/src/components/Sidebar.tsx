@@ -26,7 +26,7 @@ const menuItems = [
   { name: 'Listas', href: '/dashboard/listas', icon: User },
   { name: 'Electores', href: '/dashboard/electores', icon: Users },
   { name: 'Monitor', href: '/dashboard/monitor-votacion', icon: Eye },
-  { name: 'Blockchain', href: '/dashboard/blockchain', icon: LinkIcon },
+  { name: 'Blockchain Explorer', href: '/dashboard/explorer', icon: LinkIcon },
   { name: 'Auditoría', href: '/dashboard/auditoria', icon: ShieldCheck },
   { name: 'Reportes', href: '/dashboard/reportes', icon: BarChart4 },
   { name: 'Usuarios', href: '/dashboard/usuarios', icon: UsersRound },

@@ -72,6 +72,12 @@ export default function LandingPage() {
               <a href="#documentos" className="text-white/80 hover:text-white transition-colors">Documentos</a>
               <a href="#padron" className="text-white/80 hover:text-white transition-colors">Padrón Electoral</a>
               <Link 
+                href="/verificacion" 
+                className="text-white/80 hover:text-white transition-colors flex items-center gap-1 font-bold"
+              >
+                <Search className="w-4 h-4" /> Verificar Voto
+              </Link>
+              <Link 
                 href="/login" 
                 className="bg-yellow-500 hover:bg-yellow-400 text-[#002f6c] px-5 py-2.5 rounded-full font-bold shadow-lg shadow-yellow-500/20 transition-all ml-2"
               >

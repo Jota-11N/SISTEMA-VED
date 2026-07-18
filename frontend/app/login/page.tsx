@@ -64,7 +64,7 @@ export default function LoginPage() {
         router.push('/dashboard');
         break;
       case 'elector':
-        router.push('/votacion');
+        router.push('/login/otp');
         break;
       case 'personero':
         router.push('/dashboard/personero');
